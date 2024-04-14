@@ -1,0 +1,68 @@
+Xml file book_details.xml
+<books>
+<book>
+<title>The Great Gatsby</title>
+<author>F. Scott Fitzgerald</author>
+<year>1925</year>
+<price>10.99</price>
+</book>
+<book>
+<title>To Kill a Mockingbird</title>
+<author>Harper Lee</author>
+<year>1960</year>
+<price>8.99</price>
+</book>
+<book>
+<title>1984</title>
+<author>George Orwell</author>
+<year>1949</year>
+<price>6.99</price>
+</book>
+<book>
+<title>Pride and Prejudice</title>
+<author>Jane Austen</author>
+<year>1813</year>
+<price>7.99</price>
+</book>
+</books>
+Ajax file
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Details</title>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
+<script>
+$(document).ready(function(){
+$(“select”).change(function(){
+Var book = $(this).val();
+$.ajax({
+url: “book_details.xml”,
+dataType: “xml”,
+success: function(xml){
+$(xml).find(‘book’).each(function(){
+Var title = $(this).find(‘title’).text();
+If (title == book) {
+Var author = $(this).find(‘author’).text();
+Var year = $(this).find(‘year’).text();
+Var price = $(this).find(‘price’).text();
+$(“#details”).html(“Author: “ + author + 
+“<br>Year: “ + year + “<br>Price: “ + price);
+}
+});
+}
+});
+});
+});
+</script>
+</head>
+<body>
+<select>
+<option>Select a book</option>
+<option>The Great Gatsby</option>
+<option>To Kill a Mockingbird</option>
+<option>1984</option>
+<option>Pride and Prejudice</option>
+</select>
+<div id=”details”></div>
+</body>
+</html>
