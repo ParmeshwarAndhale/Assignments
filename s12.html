@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact List</title>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
+<script src=”script.js”></script>
+</head>
+<body>
+<button id=”printBtn”>Print Contacts</button>
+<br><br>
+<table id=”contactTable”>
+<thead>
+<tr>
+<th>Sr. No.</th>
+<th>Name</th>
+<th>Residence Number</th>
+<th>Mobile Number</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<!—Contact list will be displayed here →
+</tbody>
+</table>
+</body>
+</html>
+Ajax file
+$(document).ready(function() {
+// Event listener for print button
+$(“#printBtn”).click(function() {
+// AJAX request to read contact.dat file
+$.ajax({
+url: “contact.dat”,
+dataType: “text”,
+success: function(data) {
+// Split the file contents into lines
+Var lines = data.split(“\n”);
+// Iterate over each line and create a table row
+Var tableRows = “”;
+For (var i = 0; i < lines.length; i++) {
+Var columns = lines[i].split(“,”);
+If (columns.length == 5) { // Only process valid rows
+tableRows += “<tr>”;
+for (var j = 0; j < columns.length; j++) {
+tableRows += “<td>” + columns[j] + “</td>”;
+}
+tableRows += “</tr>”;
+}
+}
+// Add the table rows to the table body
+$(“#contactTable tbody”).html(tableRows);
+},
+Error: function(jqXHR, textStatus, errorThrown) {
+Alert(“Error: “ + errorThrown);
+}
+});
+});
+});
