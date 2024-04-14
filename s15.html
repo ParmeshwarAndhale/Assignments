@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AJAX Auto Suggestions Example</title>
+<script>
+Function fetchSuggestions(str) {
+If (str.length == 0) {
+Document.getElementById(“suggestions”).innerHTML = “”;
+Return;
+}
+Var suggestions = [“apple”, “banana”, “cherry”, “dates”, “elderberry”, “fig”, 
+“grape”, “honeydew”, “kiwi”, “lemon”];
+Var matches = [];
+For (var i = 0; i < suggestions.length; i++) {
+If (suggestions[i].toLowerCase().startsWith(str.toLowerCase())) {
+Matches.push(suggestions[i]);
+}
+}
+If (matches.length > 0) {
+Document.getElementById(“suggestions”).innerHTML = 
+matches.join(“<br>”);
+} else {
+Document.getElementById(“suggestions”).innerHTML = “No suggestions 
+found”;
+}
+}
+</script>
+</head>
+<body>
+<input type=”text” onkeyup=”fetchSuggestions(this.value)”>
+<div id=”suggestions”></div>
+</body>
+</html>
